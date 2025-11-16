@@ -1,8 +1,9 @@
 import z from "zod";
 import { User } from "./user";
+import { IncidentStatus } from "./incident-enums";
 
 export const IncidentHistoryEntry = z.object({
-  status: z.enum(["pending", "attending", "done"]),
+  status: IncidentStatus,
   actor: User,
   date: z.string(),
 });
