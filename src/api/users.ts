@@ -37,7 +37,7 @@ export const contract = c.router(
       body: RegisterRequest,
       responses: {
         201: z.unknown(),
-        400: z.unknown(),
+        407: z.unknown(),
       },
     },
     getSelf: {
@@ -49,7 +49,7 @@ export const contract = c.router(
       },
     },
   },
-  { strictStatusCodes: true }
+  { strictStatusCodes: true },
 );
 
 const clientArgs = {

@@ -23,7 +23,7 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterRequest) => {
     const res = await usersClient.register({ body: data });
 
-    if (res.status === 400) {
+    if (res.status === 407) {
       setError("Este correo ya está en uso.");
       return;
     }
