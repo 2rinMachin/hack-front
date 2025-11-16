@@ -89,7 +89,7 @@ export const UserPage = () => {
           <div className="flex gap-2">
             <input
               type="tel"
-              placeholder="+51"
+              placeholder="+51 999 999 999"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className="flex-1 p-2 rounded border border-border"
