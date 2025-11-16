@@ -11,6 +11,12 @@ const urgencyColor = {
   high: "text-red-400",
 };
 
+const urgencyLabel = {
+  low: "Baja",
+  mid: "Media",
+  high: "Alta",
+} as const;
+
 const statusColor = {
   pending: "text-neutral-300",
   attending: "text-sky-400",
@@ -85,7 +91,7 @@ const IncidentDetail = ({ incident }: Props) => {
         <p>
           <span className="font-semibold text-neutral-400">Urgencia:</span>{" "}
           <span className={`font-semibold ${urgencyColor[incident.urgency]}`}>
-            {incident.urgency}
+            {urgencyLabel[incident.urgency]}
           </span>
         </p>
 
@@ -111,11 +117,14 @@ const IncidentDetail = ({ incident }: Props) => {
 
         <p>
           <span className="font-semibold text-neutral-400">Autor:</span>{" "}
-          {incident.author.username} ({incident.author.role})
+          {incident.author.username}
         </p>
 
         <p>
-          <span className="font-semibold text-neutral-400">Historial:</span>
+          <span className="font-semibold text-neutral-400">Historial: </span>
+          <span className="text-neutral-500">
+            {incident.history.length === 0 && "(Vacío)"}
+          </span>
         </p>
         <ul className="pl-4 list-disc space-y-1">
           {incident.history.map((h, idx) => (
