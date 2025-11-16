@@ -19,7 +19,7 @@ const CreateIncidentForm = () => {
   const [pending, setPending] = useState(false);
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [urgency, setUrgency] = useState("low");
+  const [urgency, setUrgency] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -51,7 +51,7 @@ const CreateIncidentForm = () => {
       setKind(INCIDENT_KINDS[0]);
       setDescription("");
       setLocation("");
-      setUrgency("low");
+      setUrgency("");
       setImage(null);
     } catch (err) {
       setError("No se pudo crear el incidente");
