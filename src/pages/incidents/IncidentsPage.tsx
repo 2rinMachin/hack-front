@@ -7,13 +7,21 @@ import { useEffect, useState } from "react";
 import { Incident } from "../../schemas/incident";
 import { WebSocketMessage } from "../../schemas/websocket-message";
 import { LuCircle } from "react-icons/lu";
+import { useAuth } from "../../hooks/use-auth";
+
+type IncidentsListData = {
+  body: Incident[];
+};
 
 const IncidentsPage = () => {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const { incidentsClient } = useClients();
 
+  const havePermissions = !!(user && user.role !== "student");
+
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    env.VITE_WEBSOCKET_URL
+    havePermissions ? env.VITE_WEBSOCKET_URL : null
   );
 
   useEffect(() => {
@@ -39,25 +47,28 @@ const IncidentsPage = () => {
 
     if (msg.kind === "subscription_failed") return;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryClient.setQueryData(["incidents-list"], (oldData: any) => {
-      let incidents: Incident[] = oldData?.body ?? [];
+    queryClient.setQueryData<IncidentsListData>(
+      ["incidents-list"],
+      (oldData) => {
+        let incidents: Incident[] = oldData?.body ?? [];
 
-      if (msg.kind === "incident_create") {
-        incidents = [msg.data, ...incidents];
-      } else if (msg.kind === "incident_status_update") {
-        incidents = incidents.map((i) =>
-          i.id === msg.data.id ? { ...i, ...msg.data } : i
-        );
+        if (msg.kind === "incident_create") {
+          incidents = [msg.data, ...incidents];
+        } else if (msg.kind === "incident_status_update") {
+          incidents = incidents.map((i) =>
+            i.id === msg.data.id ? { ...i, ...msg.data } : i
+          );
+        }
+
+        return { ...oldData, body: incidents };
       }
-
-      return { ...oldData, body: incidents };
-    });
+    );
   }, [queryClient, lastMessage]);
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError, isEnabled } = useQuery({
     queryKey: ["incidents-list"],
     queryFn: () => incidentsClient.listIncidents(),
+    enabled: havePermissions,
   });
 
   const incidents = data?.body;
@@ -82,7 +93,9 @@ const IncidentsPage = () => {
           </div>
         </div>
 
-        {isError ? (
+        {!isEnabled ? (
+          <p className="text-center text-neutral-400">No debería suceder...</p>
+        ) : isError ? (
           <p className="text-center text-neutral-400">Error inesperado :(</p>
         ) : isFetching || incidents === undefined ? (
           <p className="text-center text-neutral-400">Buscando incidentes...</p>

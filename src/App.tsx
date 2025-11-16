@@ -8,7 +8,13 @@ import Header from "./components/Header";
 import AuthProvider from "./components/AuthProvider";
 import RegisterPage from "./pages/auth/RegisterPage";
 import IncidentsPage from "./pages/incidents/IncidentsPage";
+<<<<<<< HEAD
 import IncidentsDetailPage from "./pages/incidents/IncidentsDetailPage";
+=======
+import ProtectedRoute from "./components/ProtectedRoute";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import { UserPage } from "./pages/UserPage";
+>>>>>>> a8d006badc757be492229a6ee0aba08014195c05
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,8 +36,18 @@ const App = () => (
               <Route path="*" Component={NotFoundPage} />
               <Route path="login" Component={LoginPage} />
               <Route path="register" Component={RegisterPage} />
+<<<<<<< HEAD
               <Route path="incidents" Component={IncidentsPage} />
               <Route path="incidents/:id" Component={IncidentsDetailPage} />
+=======
+              <Route path="users/:id" Component={UserPage} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="incidents" Component={IncidentsPage} />
+              </Route>
+
+              <Route path="unauthorized" Component={UnauthorizedPage} />
+>>>>>>> a8d006badc757be492229a6ee0aba08014195c05
             </Routes>
           </div>
         </AuthProvider>

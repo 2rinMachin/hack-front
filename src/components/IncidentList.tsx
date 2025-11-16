@@ -6,17 +6,29 @@ interface IncidentListProps {
   incidents: Incident[];
 }
 
+const urgencyLabel = {
+  low: "Baja",
+  mid: "Media",
+  high: "Alta",
+} as const;
+
 const urgencyColor = {
   low: "text-green-400 bg-green-400/10 border-green-400/30",
   mid: "text-yellow-400 bg-yellow-400/10 border-yellow-400/30",
   high: "text-red-400 bg-red-400/10 border-red-400/30",
-};
+} as const;
+
+const statusLabel = {
+  pending: "Pendiente",
+  attending: "En atención",
+  done: "Resuelto",
+} as const;
 
 const statusColor = {
   pending: "text-neutral-300 bg-neutral-500/10 border-neutral-500/30",
   attending: "text-sky-400 bg-sky-400/10 border-sky-400/30",
   done: "text-green-400 bg-green-400/10 border-green-400/30",
-};
+} as const;
 
 const IncidentList = ({ incidents }: IncidentListProps) => {
   const navigate = useNavigate();
@@ -55,7 +67,7 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
                       urgencyColor[incident.urgency]
                     }`}
                   >
-                    {incident.urgency}
+                    {urgencyLabel[incident.urgency]}
                   </span>
                 </td>
                 <td className="py-3 px-6">
@@ -64,7 +76,7 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
                       statusColor[incident.status]
                     }`}
                   >
-                    {incident.status}
+                    {statusLabel[incident.status]}
                   </span>
                 </td>
                 <td className="py-3 px-6">

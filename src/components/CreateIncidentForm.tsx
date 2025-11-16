@@ -72,15 +72,19 @@ const CreateIncidentForm = () => {
         className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
 
-      <select
-        value={urgency}
-        onChange={(e) => setUrgency(e.target.value)}
-        className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
-      >
-        <option value="low">Baja</option>
-        <option value="mid">Media</option>
-        <option value="high">Alta</option>
-      </select>
+      <label className="space-y-1">
+        <div>Urgencia:</div>
+
+        <select
+          value={urgency}
+          onChange={(e) => setUrgency(e.target.value)}
+          className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500 block"
+        >
+          <option value="low">Baja</option>
+          <option value="mid">Media</option>
+          <option value="high">Alta</option>
+        </select>
+      </label>
 
       {error && <p className="text-red-400 text-sm text-center">{error}</p>}
       {success && (

@@ -1,14 +1,15 @@
 import z from "zod";
 import { User } from "./user";
 import { IncidentHistoryEntry } from "./incident-history-entry";
+import { IncidentStatus, IncidentUrgency } from "./incident-enums";
 
 export const Incident = z.object({
   id: z.string(),
   kind: z.string(),
   description: z.string(),
   location: z.string(),
-  urgency: z.enum(["high", "mid", "low"]),
-  status: z.enum(["pending", "attending", "done"]),
+  urgency: IncidentUrgency,
+  status: IncidentStatus,
   author: User,
   history: z.array(IncidentHistoryEntry),
   created_at: z.string(),
