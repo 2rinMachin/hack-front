@@ -30,12 +30,28 @@ const options = {
     legend: {
       position: "top",
       labels: {
-        color: "#FFFFFF",
+        color: "#d4d4d8",
         font: {
           size: 14,
           weight: "normal",
         },
+        usePointStyle: true,
       },
+    },
+    tooltip: {
+      backgroundColor: "rgba(24,24,27,0.9)",
+      titleColor: "#fff",
+      bodyColor: "#e4e4e7",
+      borderColor: "rgba(255,255,255,0.05)",
+      borderWidth: 1,
+      padding: 10,
+      displayColors: false,
+    },
+  },
+
+  elements: {
+    arc: {
+      borderWidth: 0,
     },
   },
 } as const;
@@ -68,7 +84,7 @@ const IncidentsPage = () => {
   const havePermissions = !!(user && user.role !== "student");
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    havePermissions ? env.VITE_WEBSOCKET_URL : null,
+    havePermissions ? env.VITE_WEBSOCKET_URL : null
   );
 
   useEffect(() => {
@@ -103,12 +119,12 @@ const IncidentsPage = () => {
           incidents = [msg.data, ...incidents];
         } else if (msg.kind === "incident_status_update") {
           incidents = incidents.map((i) =>
-            i.id === msg.data.id ? { ...i, ...msg.data } : i,
+            i.id === msg.data.id ? { ...i, ...msg.data } : i
           );
         }
 
         return { ...oldData, body: incidents };
-      },
+      }
     );
   }, [queryClient, lastMessage]);
 
