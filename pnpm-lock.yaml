@@ -41,6 +41,9 @@ importers:
       react-router-dom:
         specifier: ^7.9.2
         version: 7.9.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-use-websocket:
+        specifier: ^4.13.0
+        version: 4.13.0
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1270,6 +1273,9 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react-use-websocket@4.13.0:
+    resolution: {integrity: sha512-anMuVoV//g2N76Wxqvqjjo1X48r9Np3y1/gMl7arX84tAPXdy5R7sB5lO5hvCzQRYjqXwV8XMAiEBOUbyrZFrw==}
 
   react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
@@ -2502,6 +2508,8 @@ snapshots:
       set-cookie-parser: 2.7.1
     optionalDependencies:
       react-dom: 19.1.1(react@19.1.1)
+
+  react-use-websocket@4.13.0: {}
 
   react@19.1.1: {}
 

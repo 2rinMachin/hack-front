@@ -7,6 +7,7 @@ export const env = createEnv({
     VITE_USERS_URL: z.string(),
     VITE_INCIDENTS_URL: z.string(),
     VITE_PUBLIC_URL: z.string(),
+    VITE_WEBSOCKET_URL: z.string(),
   },
   runtimeEnv: import.meta.env,
   emptyStringAsUndefined: true,
