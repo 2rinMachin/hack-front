@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useAuth } from "../hooks/use-auth";
 import { CreateIncidentRequest } from "../schemas/create-incident-request";
 import { useClients } from "../hooks/use-clients";
@@ -15,7 +15,7 @@ const CreateIncidentForm = () => {
   const { user } = useAuth();
   const { incidentsClient } = useClients();
 
-  const [kind, setKind] = useState<IncidentKind>(INCIDENT_KINDS[0]);
+  const [kind, setKind] = useState<IncidentKind | "">("");
   const [pending, setPending] = useState(false);
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -23,6 +23,8 @@ const CreateIncidentForm = () => {
   const [image, setImage] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const disabled = !user;
 
@@ -38,6 +40,7 @@ const CreateIncidentForm = () => {
       urgency,
       image,
     });
+
     if (!parsed.success) {
       setError("Datos inválidos");
       return;
@@ -45,17 +48,17 @@ const CreateIncidentForm = () => {
 
     try {
       setPending(true);
-
       await incidentsClient.createIncident({ body: parsed.data });
       setSuccess(true);
-      setKind(INCIDENT_KINDS[0]);
+      setKind("");
       setDescription("");
       setLocation("");
       setUrgency("");
       setImage(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err) {
       setError("No se pudo crear el incidente");
-      console.log(err);
+      console.error(err);
     } finally {
       setPending(false);
     }
@@ -68,9 +71,14 @@ const CreateIncidentForm = () => {
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result;
-      if (typeof result === "string") setImage(result.split(",")[1]); // strip data:...;base64, prefix
+      if (typeof result === "string") setImage(result.split(",")[1]);
     };
     reader.readAsDataURL(file);
+  };
+
+  const removeImage = () => {
+    setImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
@@ -79,21 +87,26 @@ const CreateIncidentForm = () => {
       className="w-full max-w-md p-6 rounded-2xl bg-neutral-900 border border-neutral-700 flex flex-col gap-4"
     >
       <h2 className="text-white text-xl font-semibold text-center">
-        Crear Incidente
+        Registrar Incidente
       </h2>
 
-      <label className="space-y-1">
-        <div>Tipo:</div>
-        <select
-          value={kind}
-          onChange={(e) => setKind(e.target.value as unknown as IncidentKind)}
-          className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500 block"
-        >
-          {INCIDENT_KINDS.map((kind) => (
-            <option key={kind}>{kindLabels[kind]}</option>
-          ))}
-        </select>
-      </label>
+      <select
+        value={kind}
+        onChange={(e) => setKind(e.target.value as IncidentKind)}
+        className={`w-full px-4 py-2 rounded-xl bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+          kind === "" ? "text-neutral-400" : "text-white"
+        }`}
+      >
+        <option value="" disabled hidden>
+          Tipo de incidente
+        </option>
+
+        {INCIDENT_KINDS.map((k) => (
+          <option key={k} value={k}>
+            {kindLabels[k]}
+          </option>
+        ))}
+      </select>
 
       <input
         value={description}
@@ -116,26 +129,40 @@ const CreateIncidentForm = () => {
           urgency === "" ? "text-neutral-400" : "text-white"
         }`}
       >
-        {/* Placeholder */}
         <option value="" disabled hidden>
           Urgencia
         </option>
-
         <option value="low">Baja</option>
         <option value="mid">Media</option>
         <option value="high">Alta</option>
       </select>
 
-      <label className="flex flex-col text-text">
-        Imagen (opcional):
+      <label className="w-full flex flex-col gap-1">
+        <span className="text-white">Imagen (opcional)</span>
+
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*"
           onChange={handleImageChange}
-          className="mt-1 px-2 py-1 rounded-xl bg-neutral-800 border border-neutral-700 text-white"
+          className={`w-full px-4 py-2 rounded-xl bg-neutral-800 border border-neutral-700
+            ${image ? "text-white" : "text-neutral-400"}
+            file:${image ? "text-white" : "text-neutral-300"}
+            file:bg-neutral-700 file:border-0 file:mr-4 
+            file:px-3 file:py-1 file:rounded-lg
+            focus:outline-none focus:ring-2 focus:ring-sky-500`}
         />
         {image && (
-          <p className="text-sm text-green-400 mt-1">Imagen seleccionada</p>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-green-400">Imagen seleccionada</p>
+            <button
+              type="button"
+              onClick={removeImage}
+              className="text-red-400 text-sm underline"
+            >
+              Eliminar
+            </button>
+          </div>
         )}
       </label>
 
@@ -150,7 +177,7 @@ const CreateIncidentForm = () => {
         disabled={disabled || pending}
         className="w-full py-2 rounded-xl bg-sky-500 text-white disabled:bg-neutral-700 disabled:text-neutral-400"
       >
-        Crear
+        Registrar
       </button>
     </form>
   );
