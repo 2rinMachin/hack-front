@@ -3,9 +3,10 @@ import { useClients } from "../../hooks/use-clients";
 import IncidentList from "../../components/IncidentList";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { env } from "../../env";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Incident } from "../../schemas/incident";
-import { BroadcastMessage } from "../../schemas/broadcast-message";
+import { WebSocketMessage } from "../../schemas/websocket-message";
+import { LuCircle } from "react-icons/lu";
 
 const IncidentsPage = () => {
   const queryClient = useQueryClient();
@@ -19,8 +20,9 @@ const IncidentsPage = () => {
     if (readyState !== ReadyState.OPEN) return;
 
     sendMessage(JSON.stringify({ action: "subscribe" }));
-    console.log("ready!");
   }, [sendMessage, readyState]);
+
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!lastMessage) return;
@@ -28,7 +30,14 @@ const IncidentsPage = () => {
     const data = JSON.parse(lastMessage.data);
     if (!data.kind) return;
 
-    const msg = BroadcastMessage.parse(data);
+    const msg = WebSocketMessage.parse(data);
+
+    if (msg.kind === "subscription_success") {
+      setReady(true);
+      return;
+    }
+
+    if (msg.kind === "subscription_failed") return;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryClient.setQueryData(["incidents-list"], (oldData: any) => {
@@ -56,9 +65,22 @@ const IncidentsPage = () => {
   return (
     <main className="min-h-screen w-full flex justify-center px-4 py-12">
       <section className="w-full max-w-5xl">
-        <h1 className="text-3xl font-semibold text-center mb-10 text-neutral-100">
+        <h1 className="text-3xl font-semibold text-center mb-2 text-neutral-100">
           Incidentes actuales
         </h1>
+        <div className="flex justify-center mt-4 mb-8">
+          <div className="bg-surface rounded-full px-4 py-2 flex items-center gap-x-2">
+            <LuCircle
+              size={10}
+              className={
+                ready
+                  ? "text-green-400 fill-green-400"
+                  : "text-yellow-400 fill-yellow-400"
+              }
+            />{" "}
+            <span>{ready ? "Conectado" : "Conectando..."}</span>
+          </div>
+        </div>
 
         {isError ? (
           <p className="text-center text-neutral-400">Error inesperado :(</p>
