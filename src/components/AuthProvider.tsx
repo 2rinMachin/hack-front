@@ -9,6 +9,7 @@ export interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const { usersClient } = useClients();
 
   const fetchUser = useCallback(async () => {
@@ -23,6 +24,8 @@ const AuthProvider = ({ children }: Props) => {
       setUser(res.body);
     } catch (err) {
       console.error("Could not fetch user:", err);
+    } finally {
+      setLoading(false);
     }
   }, [usersClient]);
 
@@ -30,7 +33,7 @@ const AuthProvider = ({ children }: Props) => {
     fetchUser();
   }, [fetchUser]);
 
-  return <AuthContext value={{ user }}>{children}</AuthContext>;
+  return <AuthContext value={{ user, loading }}>{children}</AuthContext>;
 };
 
 export default AuthProvider;

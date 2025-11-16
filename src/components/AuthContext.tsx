@@ -3,6 +3,7 @@ import type { User } from "../schemas/user";
 
 export interface AuthContextValue {
   user: User | null;
+  loading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
