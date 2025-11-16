@@ -11,6 +11,7 @@ import IncidentsPage from "./pages/incidents/IncidentsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import { UserPage } from "./pages/UserPage";
+import IncidentsDetailPage from "./pages/incidents/IncidentsDetailPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ const App = () => (
 
               <Route element={<ProtectedRoute />}>
                 <Route path="incidents" Component={IncidentsPage} />
+                <Route path="incidents/:id" Component={IncidentsDetailPage} />
               </Route>
 
               <Route path="unauthorized" Component={UnauthorizedPage} />
