@@ -12,7 +12,7 @@ const CreateIncidentForm = () => {
   const [kind, setKind] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [urgency, setUrgency] = useState("low");
+  const [urgency, setUrgency] = useState(""); // ⬅ placeholder inicial
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -35,7 +35,7 @@ const CreateIncidentForm = () => {
       setKind("");
       setDescription("");
       setLocation("");
-      setUrgency("low");
+      setUrgency(""); // ⬅ vuelve al placeholder
     } catch (err) {
       setError("No se pudo crear el incidente");
       console.log(err);
@@ -72,19 +72,22 @@ const CreateIncidentForm = () => {
         className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
 
-      <label className="space-y-1">
-        <div>Urgencia:</div>
+      <select
+        value={urgency}
+        onChange={(e) => setUrgency(e.target.value)}
+        className={`w-full px-4 py-2 rounded-xl bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+          urgency === "" ? "text-neutral-400" : "text-white"
+        }`}
+      >
+        {/* Placeholder */}
+        <option value="" disabled hidden>
+          Urgencia
+        </option>
 
-        <select
-          value={urgency}
-          onChange={(e) => setUrgency(e.target.value)}
-          className="w-full px-4 py-2 rounded-xl bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-sky-500 block"
-        >
-          <option value="low">Baja</option>
-          <option value="mid">Media</option>
-          <option value="high">Alta</option>
-        </select>
-      </label>
+        <option value="low">Baja</option>
+        <option value="mid">Media</option>
+        <option value="high">Alta</option>
+      </select>
 
       {error && <p className="text-red-400 text-sm text-center">{error}</p>}
       {success && (
