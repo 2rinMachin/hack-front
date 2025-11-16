@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const CreateIncidentRequest = z.object({
-  kind: z.string(),
-  description: z.string(),
-  location: z.string(),
+  kind: z.enum(["behavior", "aggresion"]),
+  description: z.string().nonempty(),
+  location: z.string().nonempty(),
   urgency: z.enum(["high", "mid", "low"]),
 });
 

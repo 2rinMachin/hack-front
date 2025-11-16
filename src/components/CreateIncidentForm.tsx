@@ -5,7 +5,7 @@ import { useClients } from "../hooks/use-clients";
 
 const schema = CreateIncidentRequest;
 
-export default function CreateIncidentForm() {
+const CreateIncidentForm = () => {
   const { user } = useAuth();
   const { incidentsClient } = useClients();
 
@@ -95,4 +95,6 @@ export default function CreateIncidentForm() {
       </button>
     </form>
   );
-}
+};
+
+export default CreateIncidentForm;

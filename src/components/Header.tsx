@@ -4,7 +4,7 @@ import { LuLogOut, LuPencil, LuUser } from "react-icons/lu";
 import { useClients } from "../hooks/use-clients";
 
 const links = [
-  { label: "Incidentes", to: "/incidentes", authenticated: false },
+  { label: "Incidentes", to: "/incidents", authenticated: false },
 ] as const;
 
 const Header = () => {
