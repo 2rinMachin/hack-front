@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
 import { LuLogOut, LuPencil, LuUser } from "react-icons/lu";
 import { useClients } from "../hooks/use-clients";
+import { twJoin } from "tailwind-merge";
 
 const links = [
   {
@@ -55,11 +56,10 @@ const Header = () => {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `relative text-neutral-300 hover:text-primary transition-colors
-after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5
-after:w-0 after:bg-primary
-hover:after:w-full after:transition-all
-${isActive ? "text-primary font-medium after:w-full" : ""}`
+                      twJoin(
+                        "relative text-neutral-300 hover:text-primary transition-colors after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary hover:after:w-full after:transition-all",
+                        isActive && "text-primary font-medium after:w-full",
+                      )
                     }
                   >
                     {link.label}
