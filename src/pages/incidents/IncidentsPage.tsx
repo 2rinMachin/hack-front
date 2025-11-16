@@ -8,6 +8,10 @@ import { Incident } from "../../schemas/incident";
 import { WebSocketMessage } from "../../schemas/websocket-message";
 import { LuCircle } from "react-icons/lu";
 
+type IncidentsListData = {
+  body: Incident[];
+};
+
 const IncidentsPage = () => {
   const queryClient = useQueryClient();
   const { incidentsClient } = useClients();
@@ -39,20 +43,22 @@ const IncidentsPage = () => {
 
     if (msg.kind === "subscription_failed") return;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryClient.setQueryData(["incidents-list"], (oldData: any) => {
-      let incidents: Incident[] = oldData?.body ?? [];
+    queryClient.setQueryData<IncidentsListData>(
+      ["incidents-list"],
+      (oldData) => {
+        let incidents: Incident[] = oldData?.body ?? [];
 
-      if (msg.kind === "incident_create") {
-        incidents = [msg.data, ...incidents];
-      } else if (msg.kind === "incident_status_update") {
-        incidents = incidents.map((i) =>
-          i.id === msg.data.id ? { ...i, ...msg.data } : i,
-        );
-      }
+        if (msg.kind === "incident_create") {
+          incidents = [msg.data, ...incidents];
+        } else if (msg.kind === "incident_status_update") {
+          incidents = incidents.map((i) =>
+            i.id === msg.data.id ? { ...i, ...msg.data } : i,
+          );
+        }
 
-      return { ...oldData, body: incidents };
-    });
+        return { ...oldData, body: incidents };
+      },
+    );
   }, [queryClient, lastMessage]);
 
   const { data, isFetching, isError } = useQuery({
