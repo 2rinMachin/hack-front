@@ -42,6 +42,12 @@ const App = () => (
             </Routes>
           </div>
         </AuthProvider>
+        <footer className="text-md text-center py-4 px-4 text-neutral-600">
+          <small>
+            Esta aplicación afirma con orgullo que no ha sido desarrollada con
+            agentes de IA integrados.
+          </small>
+        </footer>
       </ClientsProvider>
     </QueryClientProvider>
   </BrowserRouter>
