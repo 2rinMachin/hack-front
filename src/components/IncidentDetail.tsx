@@ -1,8 +1,6 @@
 import type { Incident } from "../schemas/incident";
 import { useAuth } from "../hooks/use-auth";
 import { useClients } from "../hooks/use-clients";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "../util/dayjs";
 
 const urgencyColor = {
@@ -25,45 +23,25 @@ const statusColor = {
 
 interface Props {
   incident: Incident;
+  refetch: () => void;
 }
 
-const IncidentDetail = ({ incident }: Props) => {
+const IncidentDetail = ({ incident, refetch }: Props) => {
   const { user } = useAuth();
   const { incidentsClient } = useClients();
-  const queryClient = useQueryClient();
-  const [newStatus, setNewStatus] = useState<Incident["status"]>(
-    incident.status,
-  );
-  const [updating, setUpdating] = useState(false);
 
   const canUpdate = user?.role === "staff" || user?.role === "authority";
 
-  const mutation = useMutation<Incident, unknown, Incident["status"]>({
-    mutationFn: (status) =>
-      incidentsClient.updateIncidentStatus({
-        params: { id: incident.id },
-        body: { status },
-      }),
-    onMutate: (status) => {
-      setUpdating(true);
-      setNewStatus(status);
-    },
-    onSuccess: (updatedIncident) => {
-      setNewStatus(updatedIncident.status);
-      queryClient.setQueryData<Incident>(
-        ["incident", incident.id],
-        updatedIncident,
-      );
-    },
-    onSettled: () => {
-      setUpdating(false);
-      queryClient.invalidateQueries({ queryKey: ["incident", incident.id] });
-    },
-  });
+  const handleStatusChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const status = e.target.value as Incident["status"];
 
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as Incident["status"];
-    mutation.mutate(value);
+    await incidentsClient.updateIncidentStatus({
+      params: { id: incident.id },
+      body: { status },
+    });
+    refetch();
   };
 
   return (
@@ -99,9 +77,8 @@ const IncidentDetail = ({ incident }: Props) => {
           <span className="font-semibold text-neutral-400">Estado:</span>{" "}
           {canUpdate ? (
             <select
-              value={newStatus}
+              value={incident.status}
               onChange={handleStatusChange}
-              disabled={updating}
               className="bg-surface border border-neutral-500 text-neutral-100 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="pending">pending</option>

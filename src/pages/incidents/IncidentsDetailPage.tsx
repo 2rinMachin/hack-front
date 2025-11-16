@@ -8,7 +8,7 @@ const IncidentsDetailPage = () => {
   const { id } = useParams();
   const { incidentsClient } = useClients();
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError, refetch } = useQuery({
     queryKey: ["incident", id],
     queryFn: () => incidentsClient.getIncident({ params: { id: id! } }),
     enabled: !!id,
@@ -40,7 +40,7 @@ const IncidentsDetailPage = () => {
   return (
     <main className="min-h-screen w-full flex justify-center px-4 py-12">
       <section className="w-full max-w-3xl">
-        <IncidentDetail incident={incident} />
+        <IncidentDetail incident={incident} refetch={refetch} />
       </section>
     </main>
   );
