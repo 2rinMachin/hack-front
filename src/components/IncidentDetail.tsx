@@ -22,6 +22,18 @@ const statusColor = {
   done: "text-green-400",
 };
 
+const statusBgColor = {
+  pending: "bg-neutral-500/10 border-neutral-500/30",
+  attending: "bg-sky-400/10 border-sky-400/30",
+  done: "bg-green-400/10 border-green-400/30",
+};
+
+const statusLabel = {
+  pending: "pendiente",
+  attending: "en atención",
+  done: "resuelto",
+} as const;
+
 interface Props {
   incident: Incident;
   refetch: () => void;
@@ -34,7 +46,7 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
   const canUpdate = user?.role === "staff" || user?.role === "authority";
 
   const handleStatusChange = async (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const status = e.target.value as Incident["status"];
 
@@ -46,12 +58,12 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-8 shadow-lg space-y-6 text-neutral-100">
-      <h2 className="text-2xl font-bold">
-        Incidente <code>{incident.id}</code>
-      </h2>
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-border bg-surface p-8 shadow-lg text-neutral-100 space-y-4">
+        <h2 className="text-2xl font-bold">
+          Incidente <code>{incident.id}</code>
+        </h2>
 
-      <div className="space-y-4">
         <p>
           <span className="font-semibold text-neutral-400">Tipo:</span>{" "}
           <span className="capitalize">{incident.kind}</span>
@@ -103,21 +115,6 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
         </p>
 
         <p>
-          <span className="font-semibold text-neutral-400">Historial: </span>
-          <span className="text-neutral-500">
-            {incident.history.length === 0 && "(Vacío)"}
-          </span>
-        </p>
-        <ul className="pl-4 list-disc space-y-1">
-          {incident.history.map((h, idx) => (
-            <li key={idx} className="text-sm text-neutral-400">
-              {h.status} por {h.actor.username} el{" "}
-              {dayjs(h.date).locale("es").format("DD MMM YYYY - HH:mm")}
-            </li>
-          ))}
-        </ul>
-
-        <p>
           <span className="font-semibold text-neutral-400">
             Fecha de creación:
           </span>{" "}
@@ -126,17 +123,42 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
             .format("DD MMM YYYY - HH:mm")}
         </p>
 
-        {incident.image_url ? (
+        {incident.image_url && (
           <div>
             <p className="font-semibold text-neutral-400 mb-4">
               Imagen adjunta:
             </p>
             <img src={incident.image_url} className="rounded-lg w-full" />
           </div>
+        )}
+      </div>
+
+      <div className="rounded-2xl border border-border bg-surface p-6 shadow-lg space-y-3">
+        <h3 className="text-xl font-bold text-neutral-100 mb-4">Historial</h3>
+        {incident.history.length === 0 ? (
+          <p className="text-neutral-500">(Vacío)</p>
         ) : (
-          <p className="text-center text-neutral-500 mt-8">
-            Este incidente no tiene una imagen adjunta.
-          </p>
+          <ul className="space-y-2">
+            {incident.history.map((h, idx) => (
+              <li
+                key={idx}
+                className={twJoin(
+                  "flex justify-between items-center p-3 rounded-lg border text-sm",
+                  statusBgColor[h.status],
+                  statusColor[h.status]
+                )}
+              >
+                <span>
+                  Estado cambiado a{" "}
+                  <span className="font-semibold">{statusLabel[h.status]}</span>{" "}
+                  por <span className="font-medium">{h.actor.username}</span>
+                </span>
+                <span className="text-neutral-400 text-xs">
+                  {dayjs(h.date).locale("es").format("DD MMM YYYY - HH:mm")}
+                </span>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>

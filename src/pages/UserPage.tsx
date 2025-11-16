@@ -72,7 +72,6 @@ export const UserPage = () => {
           </div>
         </div>
 
-        {/* Suscripción */}
         <div className="w-full bg-neutral-800 border border-neutral-700 rounded-2xl p-6 flex flex-col gap-6">
           <h2 className="text-xl font-semibold text-center text-white">
             Suscripciones
