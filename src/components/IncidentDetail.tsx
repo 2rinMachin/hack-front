@@ -85,7 +85,9 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
                 return (
                   <button
                     key={status}
+                    disabled={selected}
                     onClick={async () => {
+                      if (selected) return;
                       await incidentsClient.updateIncidentStatus({
                         params: { id: incident.id },
                         body: { status },
@@ -93,11 +95,10 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
                       refetch();
                     }}
                     className={twJoin(
-                      "px-3 py-1 rounded-lg border text-sm transition-colors",
-                      "hover:bg-neutral-700/40 hover:border-neutral-500",
+                      "px-3 py-1 rounded-lg border text-sm transition-colors flex items-center gap-1",
                       selected
-                        ? "border-primary text-primary bg-neutral-700/60"
-                        : "border-neutral-600 text-neutral-300"
+                        ? "bg-neutral-700 text-neutral-200 border-neutral-500 opacity-70"
+                        : "border-neutral-600 text-neutral-300 hover:bg-neutral-700/40 hover:border-neutral-500"
                     )}
                   >
                     {statusLabel[status]}
