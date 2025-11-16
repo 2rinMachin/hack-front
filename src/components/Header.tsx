@@ -24,15 +24,15 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
-      <div className="h-1 bg-[var(--color-primary)]"></div>
+    <header className="sticky top-0 z-50 bg-surface border-b border-border">
+      <div className="h-1 bg-primary"></div>
 
       <div className="backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-8">
             <NavLink
               to="/"
-              className="flex items-center text-2xl font-extrabold text-[var(--color-primary)] select-none"
+              className="flex items-center text-2xl font-extrabold text-primary select-none"
             >
               <LuPencil className="inline-block mr-2" />
               IncidenTEC
@@ -46,11 +46,11 @@ const Header = () => {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `relative text-neutral-300 hover:text-[var(--color-primary)] transition-colors
+                      `relative text-neutral-300 hover:text-primary transition-colors
 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5
-after:w-0 after:bg-[var(--color-primary)]
+after:w-0 after:bg-primary
 hover:after:w-full after:transition-all
-${isActive ? "text-[var(--color-primary)] font-medium after:w-full" : ""}`
+${isActive ? "text-primary font-medium after:w-full" : ""}`
                     }
                   >
                     {link.label}
@@ -64,15 +64,15 @@ ${isActive ? "text-[var(--color-primary)] font-medium after:w-full" : ""}`
               <div className="flex items-center gap-4">
                 <NavLink
                   to={`/users/${user.id}`}
-                  className="flex items-center gap-3 hover:text-[var(--color-primary)] transition-colors"
+                  className="flex items-center gap-3 hover:text-primary transition-colors"
                 >
                   <span>{user.username}</span>
-                  <LuUser className="size-8 p-1 border border-[var(--color-border)] rounded-full" />
+                  <LuUser className="size-8 p-1 border border-border rounded-full" />
                 </NavLink>
 
                 <button
                   onClick={logout}
-                  className="p-2 rounded-md border border-[var(--color-border)] hover:bg-neutral-700 transition"
+                  className="p-2 rounded-md border border-border hover:bg-neutral-700 transition"
                   title="Cerrar sesión"
                 >
                   <LuLogOut className="size-5 text-neutral-300" />
@@ -82,13 +82,13 @@ ${isActive ? "text-[var(--color-primary)] font-medium after:w-full" : ""}`
               <div className="flex gap-3">
                 <NavLink
                   to="/login"
-                  className="px-5 py-2 rounded-md text-white bg-[var(--color-primary)] hover:bg-sky-600 transition font-medium"
+                  className="px-5 py-2 rounded-md text-white bg-primary hover:bg-sky-600 transition font-medium"
                 >
                   Iniciar sesión
                 </NavLink>
                 <NavLink
                   to="/register"
-                  className="px-5 py-2 rounded-md border border-[var(--color-border)] text-neutral-300 hover:bg-neutral-700 transition"
+                  className="px-5 py-2 rounded-md border border-border text-neutral-300 hover:bg-neutral-700 transition"
                 >
                   Crear cuenta
                 </NavLink>

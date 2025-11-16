@@ -40,14 +40,14 @@ const LoginPage = () => {
         </h1>
 
         <form
-          className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-sm px-6 py-8 space-y-5"
+          className="bg-surface border border-border rounded-2xl shadow-sm px-6 py-8 space-y-5"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div>
             <input
               type="email"
               placeholder="Correo"
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary text-white"
               {...form.register("email", { required: true })}
             />
           </div>
@@ -55,7 +55,7 @@ const LoginPage = () => {
             <input
               type="password"
               placeholder="Contraseña"
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary text-white"
               {...form.register("password", { required: true })}
             />
           </div>
@@ -68,7 +68,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-[var(--color-primary)] text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-sky-600 transition"
+            className="w-full bg-primary text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-sky-600 transition"
           >
             <LuLogIn className="size-4" />
             Entrar
@@ -79,9 +79,9 @@ const LoginPage = () => {
           ¿No tienes cuenta?{" "}
           <NavLink
             to="/register"
-            className="text-[var(--color-primary)] font-medium hover:underline"
+            className="text-primary font-medium hover:underline"
           >
-            Crear una
+            Crea una.
           </NavLink>
         </p>
       </div>

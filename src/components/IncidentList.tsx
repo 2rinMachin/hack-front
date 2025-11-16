@@ -19,7 +19,7 @@ const statusColor = {
 const IncidentList = ({ incidents }: IncidentListProps) => {
   return (
     <div className="overflow-x-auto w-full">
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-md overflow-hidden">
+      <div className="rounded-2xl border border-border bg-surface shadow-md overflow-hidden">
         <table className="min-w-full text-neutral-100">
           <thead className="bg-neutral-800/60 backdrop-blur-sm">
             <tr>

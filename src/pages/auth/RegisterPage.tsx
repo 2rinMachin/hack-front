@@ -48,14 +48,14 @@ const RegisterPage = () => {
         </h1>
 
         <form
-          className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-sm px-6 py-8 space-y-5"
+          className="bg-surface border border-border rounded-2xl shadow-sm px-6 py-8 space-y-5"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div>
             <input
               type="text"
               placeholder="Nombre de usuario"
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary text-white"
               {...form.register("username")}
             />
           </div>
@@ -64,7 +64,7 @@ const RegisterPage = () => {
             <input
               type="email"
               placeholder="Correo"
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary text-white"
               {...form.register("email")}
             />
           </div>
@@ -73,14 +73,14 @@ const RegisterPage = () => {
             <input
               type="password"
               placeholder="Contraseña"
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary text-white"
               {...form.register("password")}
             />
           </div>
 
           <div>
             <select
-              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              className="bg-neutral-900 border border-border rounded-lg px-3 py-2 w-full text-white focus:outline-none focus:ring-2 focus:ring-primary"
               {...form.register("role")}
             >
               <option className="text-black" value="student">
@@ -103,7 +103,7 @@ const RegisterPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-[var(--color-primary)] text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-sky-600 transition"
+            className="w-full bg-primary text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-sky-600 transition"
           >
             <LuUserPlus className="size-4" />
             Registrarse
@@ -114,7 +114,7 @@ const RegisterPage = () => {
           ¿Ya tienes cuenta?{" "}
           <NavLink
             to="/login"
-            className="text-[var(--color-primary)] font-medium hover:underline"
+            className="text-primary font-medium hover:underline"
           >
             Inicia sesión
           </NavLink>
