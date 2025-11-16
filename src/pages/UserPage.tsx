@@ -4,6 +4,12 @@ import { useAuth } from "../hooks/use-auth";
 import { LuUser } from "react-icons/lu";
 import { useClients } from "../hooks/use-clients";
 
+const roleLabel = {
+  student: "Estudiante",
+  staff: "Personal administrativo",
+  authority: "Autoridad",
+} as const;
+
 export const UserPage = () => {
   const auth = useAuth();
   const { incidentsClient } = useClients();
@@ -60,8 +66,8 @@ export const UserPage = () => {
             <span>{auth.user.email}</span>
           </div>
           <div className="flex justify-between border-b border-[var(--color-border)] pb-2">
-            <span className="font-semibold">Role:</span>
-            <span className="capitalize">{auth.user.role}</span>
+            <span className="font-semibold">Rol:</span>
+            <span>{roleLabel[auth.user.role]}</span>
           </div>
         </div>
       </div>
