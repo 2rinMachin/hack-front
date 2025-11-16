@@ -11,6 +11,12 @@ import { CreateIncidentRequest } from "../schemas/create-incident-request";
 import { UpdateStatusRequest } from "../schemas/update-status-request";
 import { EmailSubscribeRequest } from "../schemas/email-subscribe-request";
 import { SmsSubscribeRequest } from "../schemas/sms-subscribe-request";
+import { GetIncidentsSummaryRequest } from "../schemas/get-incidents-summary-request";
+import {
+  IncidentKind,
+  IncidentStatus,
+  IncidentUrgency,
+} from "../schemas/incident-enums";
 
 const c = initContract();
 
@@ -19,6 +25,12 @@ export const contract = c.router(
     listIncidents: {
       method: "GET",
       path: "/incidents",
+      query: z.object({
+        kind: IncidentKind.optional(),
+        status: IncidentStatus.optional(),
+        urgency: IncidentUrgency.optional(),
+        location: z.string().optional(),
+      }),
       responses: {
         200: z.array(Incident),
       },
@@ -29,6 +41,19 @@ export const contract = c.router(
       responses: {
         200: Incident,
         404: z.unknown(),
+      },
+    },
+    getIncidentsSummary: {
+      method: "GET",
+      path: "/incidents/summary",
+      query: z.object({
+        kind: IncidentKind.optional(),
+        status: IncidentStatus.optional(),
+        urgency: IncidentUrgency.optional(),
+        location: z.string().optional(),
+      }),
+      responses: {
+        200: GetIncidentsSummaryRequest,
       },
     },
     createIncident: {
@@ -69,7 +94,7 @@ export const contract = c.router(
       },
     },
   },
-  { strictStatusCodes: true }
+  { strictStatusCodes: true },
 );
 
 const clientArgs = {
@@ -84,7 +109,7 @@ export type IncidentsApiClient = InitClientReturn<
 >;
 
 export const createIncidentsClient = (
-  token: string | null
+  token: string | null,
 ): IncidentsApiClient => {
   return initClient(contract, {
     ...clientArgs,
