@@ -88,7 +88,9 @@ const CreateIncidentForm = () => {
 
       {error && <p className="text-red-400 text-sm text-center">{error}</p>}
       {success && (
-        <p className="text-green-400 text-sm text-center">Incidente creado</p>
+        <p className="text-green-400 text-sm text-center">
+          ¡Incidente creado! Será atendido en breve.
+        </p>
       )}
 
       <button
