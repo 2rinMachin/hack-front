@@ -45,18 +45,6 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
 
   const canUpdate = user?.role === "staff" || user?.role === "authority";
 
-  const handleStatusChange = async (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const status = e.target.value as Incident["status"];
-
-    await incidentsClient.updateIncidentStatus({
-      params: { id: incident.id },
-      body: { status },
-    });
-    refetch();
-  };
-
   return (
     <div className="space-y-6">
       <div className="rounded-2xl border border-border bg-surface p-8 shadow-lg text-neutral-100 space-y-4">
@@ -91,15 +79,32 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
         <p>
           <span className="font-semibold text-neutral-400">Estado:</span>{" "}
           {canUpdate ? (
-            <select
-              value={incident.status}
-              onChange={handleStatusChange}
-              className="bg-surface border border-neutral-500 text-neutral-100 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="pending">pending</option>
-              <option value="attending">attending</option>
-              <option value="done">done</option>
-            </select>
+            <div className="flex gap-2 mt-2">
+              {(["pending", "attending", "done"] as const).map((status) => {
+                const selected = incident.status === status;
+                return (
+                  <button
+                    key={status}
+                    onClick={async () => {
+                      await incidentsClient.updateIncidentStatus({
+                        params: { id: incident.id },
+                        body: { status },
+                      });
+                      refetch();
+                    }}
+                    className={twJoin(
+                      "px-3 py-1 rounded-lg border text-sm transition-colors",
+                      "hover:bg-neutral-700/40 hover:border-neutral-500",
+                      selected
+                        ? "border-primary text-primary bg-neutral-700/60"
+                        : "border-neutral-600 text-neutral-300"
+                    )}
+                  >
+                    {statusLabel[status]}
+                  </button>
+                );
+              })}
+            </div>
           ) : (
             <span
               className={twJoin("font-semibold", statusColor[incident.status])}
