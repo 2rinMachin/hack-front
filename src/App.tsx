@@ -32,7 +32,7 @@ const App = () => (
               <Route path="*" Component={NotFoundPage} />
               <Route path="login" Component={LoginPage} />
               <Route path="register" Component={RegisterPage} />
-              <Route path="users/:id" Component={UserPage} />
+              <Route path="profile" Component={UserPage} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="incidents" Component={IncidentsPage} />

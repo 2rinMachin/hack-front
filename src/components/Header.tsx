@@ -72,7 +72,7 @@ const Header = () => {
             {user ? (
               <div className="flex items-center gap-4">
                 <NavLink
-                  to={`/users/${user.id}`}
+                  to="/profile"
                   className="flex items-center gap-3 hover:text-primary transition-colors"
                 >
                   <span>{user.username}</span>
