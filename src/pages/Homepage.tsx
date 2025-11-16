@@ -17,8 +17,7 @@ const HomePage = () => {
           </p>
 
           <p className="text-neutral-400 max-w-md text-sm mx-auto md:mx-0">
-            Tu reporte es anónimo para otros estudiantes y será revisado por
-            personal acreditado.
+            Tu reporte será revisado por personal acreditado.
           </p>
         </div>
 
