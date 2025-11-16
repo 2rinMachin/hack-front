@@ -76,7 +76,7 @@ const IncidentFiltersSchema = z.object({
   location: z.string().optional(),
 });
 
-type IncidentFilters = z.infer<typeof IncidentFiltersSchema>;
+type IncidentFiltersSchema = z.infer<typeof IncidentFiltersSchema>;
 
 type IncidentsListData = {
   body: Incident[];
@@ -87,7 +87,7 @@ const IncidentsPage = () => {
   const { user } = useAuth();
   const { incidentsClient } = useClients();
 
-  const [filters, setFilters] = useState<IncidentFilters>({
+  const [filters, setFilters] = useState<IncidentFiltersSchema>({
     kind: undefined,
     status: undefined,
     urgency: undefined,
