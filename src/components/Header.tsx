@@ -4,8 +4,13 @@ import { LuLogOut, LuPencil, LuUser } from "react-icons/lu";
 import { useClients } from "../hooks/use-clients";
 
 const links = [
-  { label: "Incidentes", to: "/incidents", authenticated: false },
-] as const;
+  {
+    label: "Incidentes",
+    to: "/incidents",
+    authenticated: true,
+    authorized_roles: ["staff", "authority"],
+  },
+];
 
 const Header = () => {
   const { user } = useAuth();
@@ -40,7 +45,11 @@ const Header = () => {
 
             <nav className="flex items-center gap-6">
               {links
-                .filter((l) => !l.authenticated || user)
+                .filter(
+                  (l) =>
+                    !l.authenticated ||
+                    (user && l.authorized_roles.includes(user.role)),
+                )
                 .map((link) => (
                   <NavLink
                     key={link.to}

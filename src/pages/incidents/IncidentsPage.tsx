@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Incident } from "../../schemas/incident";
 import { WebSocketMessage } from "../../schemas/websocket-message";
 import { LuCircle } from "react-icons/lu";
+import { useAuth } from "../../hooks/use-auth";
 
 type IncidentsListData = {
   body: Incident[];
@@ -14,10 +15,13 @@ type IncidentsListData = {
 
 const IncidentsPage = () => {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const { incidentsClient } = useClients();
 
+  const havePermissions = !!(user && user.role !== "student");
+
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    env.VITE_WEBSOCKET_URL,
+    havePermissions ? env.VITE_WEBSOCKET_URL : null,
   );
 
   useEffect(() => {
@@ -61,9 +65,10 @@ const IncidentsPage = () => {
     );
   }, [queryClient, lastMessage]);
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError, isEnabled } = useQuery({
     queryKey: ["incidents-list"],
     queryFn: () => incidentsClient.listIncidents(),
+    enabled: havePermissions,
   });
 
   const incidents = data?.body;
@@ -88,7 +93,9 @@ const IncidentsPage = () => {
           </div>
         </div>
 
-        {isError ? (
+        {!isEnabled ? (
+          <p className="text-center text-neutral-400">No debería suceder...</p>
+        ) : isError ? (
           <p className="text-center text-neutral-400">Error inesperado :(</p>
         ) : isFetching || incidents === undefined ? (
           <p className="text-center text-neutral-400">Buscando incidentes...</p>
