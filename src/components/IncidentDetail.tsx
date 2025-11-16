@@ -26,7 +26,7 @@ const IncidentDetail = ({ incident }: Props) => {
   const { incidentsClient } = useClients();
   const queryClient = useQueryClient();
   const [newStatus, setNewStatus] = useState<Incident["status"]>(
-    incident.status
+    incident.status,
   );
   const [updating, setUpdating] = useState(false);
 
@@ -46,7 +46,7 @@ const IncidentDetail = ({ incident }: Props) => {
       setNewStatus(updatedIncident.status);
       queryClient.setQueryData<Incident>(
         ["incident", incident.id],
-        updatedIncident
+        updatedIncident,
       );
     },
     onSettled: () => {
@@ -132,6 +132,19 @@ const IncidentDetail = ({ incident }: Props) => {
             .locale("es")
             .format("DD MMM YYYY - HH:mm")}
         </p>
+
+        {incident.image_url ? (
+          <div>
+            <p className="font-semibold text-neutral-400 mb-4">
+              Imagen adjunta:
+            </p>
+            <img src={incident.image_url} className="rounded-lg w-full" />
+          </div>
+        ) : (
+          <p className="text-center text-neutral-500 mt-8">
+            Este incidente no tiene una imagen adjuntada.
+          </p>
+        )}
       </div>
     </div>
   );
