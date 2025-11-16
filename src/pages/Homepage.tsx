@@ -24,9 +24,7 @@ const HomePage = () => {
           </p>
         </div>
 
-        {auth.loading ? (
-          <p>Cargando...</p>
-        ) : auth.user ? (
+        {auth.loading ? null : auth.user ? (
           <CreateIncidentForm />
         ) : (
           <div className="text-2xl">
