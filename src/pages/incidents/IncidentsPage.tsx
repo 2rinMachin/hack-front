@@ -13,22 +13,18 @@ const IncidentsPage = () => {
   const incidents = data?.body;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-blue-50 py-16">
-      <section className="max-w-4xl mx-auto px-4">
-        <h1 className="font-semibold text-3xl text-center mb-10 bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
+    <main className="min-h-screen w-full flex justify-center px-4 py-12">
+      <section className="w-full max-w-5xl">
+        <h1 className="text-3xl font-semibold text-center mb-10 text-neutral-100">
           Incidentes actuales
         </h1>
 
         {isError ? (
-          <p className="text-center text-neutral-500 animate-pulse">
-            Error inesperado :(
-          </p>
+          <p className="text-center text-neutral-400">Error inesperado :(</p>
         ) : isFetching || incidents === undefined ? (
-          <p className="text-center text-neutral-500 animate-pulse">
-            Buscando incidentes...
-          </p>
+          <p className="text-center text-neutral-400">Buscando incidentes...</p>
         ) : incidents?.length === 0 ? (
-          <p className="text-center text-neutral-500">
+          <p className="text-center text-neutral-400">
             No se encontraron incidentes.
           </p>
         ) : (
