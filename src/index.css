@@ -18,5 +18,5 @@ body {
 }
 
 button {
-  cursor: pointer;
+  @apply cursor-pointer disabled:brightness-75;
 }

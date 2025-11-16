@@ -1,10 +1,12 @@
 import { z } from "zod";
+import { IncidentKind, IncidentUrgency } from "./incident-enums";
 
 export const CreateIncidentRequest = z.object({
-  kind: z.enum(["behavior", "aggression"]),
+  kind: IncidentKind,
   description: z.string().nonempty(),
   location: z.string().nonempty(),
-  urgency: z.enum(["high", "mid", "low"]),
+  urgency: IncidentUrgency,
+  image: z.string().nullable().optional(),
 });
 
 export type CreateIncidentRequest = z.infer<typeof CreateIncidentRequest>;

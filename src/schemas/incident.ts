@@ -13,6 +13,7 @@ export const Incident = z.object({
   author: User,
   history: z.array(IncidentHistoryEntry),
   created_at: z.string(),
+  image_url: z.string().nullable().optional(),
 });
 
 export type Incident = z.infer<typeof Incident>;
