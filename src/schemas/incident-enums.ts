@@ -1,6 +1,12 @@
 import z from "zod";
 
-export const INCIDENT_KINDS = ["aggression", "behavior"] as const;
+export const INCIDENT_KINDS = [
+  "aggression",
+  "behavior",
+  "plagiarism",
+  "discrimination",
+  "robbery",
+] as const;
 export const IncidentKind = z.literal(INCIDENT_KINDS);
 export type IncidentKind = z.infer<typeof IncidentKind>;
 

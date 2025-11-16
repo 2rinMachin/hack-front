@@ -28,6 +28,9 @@ ChartJS.register(ArcElement, CategoryScale, Tooltip, Legend);
 const labels = {
   aggression: "Agresión",
   behavior: "Comportamiento",
+  plagiarism: "Plagio",
+  discrimination: "Discriminación",
+  robbery: "Robo",
 
   high: "Alta",
   mid: "Media",
@@ -236,6 +239,9 @@ const IncidentsPage = () => {
               </option>
               <option value="behavior">Comportamiento</option>
               <option value="aggression">Agresión</option>
+              <option value="plagiarism">Plagio</option>
+              <option value="discrimination">Discriminación</option>
+              <option value="robbery">Robo</option>
             </select>
           </div>
 

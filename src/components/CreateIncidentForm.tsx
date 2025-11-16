@@ -9,6 +9,9 @@ const schema = CreateIncidentRequest;
 const kindLabels = {
   aggression: "Agresión",
   behavior: "Comportamiento",
+  plagiarism: "Plagio",
+  discrimination: "Discriminación",
+  robbery: "Robo",
 } as const;
 
 const CreateIncidentForm = () => {
