@@ -62,7 +62,9 @@ const IncidentDetail = ({ incident }: Props) => {
 
   return (
     <div className="rounded-2xl border border-border bg-surface p-8 shadow-lg space-y-6 text-neutral-100">
-      <h2 className="text-3xl font-bold">Incidente #{incident.id}</h2>
+      <h2 className="text-2xl font-bold">
+        Incidente <code>{incident.id}</code>
+      </h2>
 
       <div className="space-y-4">
         <p>
