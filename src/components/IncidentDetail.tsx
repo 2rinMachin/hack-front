@@ -153,7 +153,7 @@ const IncidentDetail = ({ incident }: Props) => {
           </div>
         ) : (
           <p className="text-center text-neutral-500 mt-8">
-            Este incidente no tiene una imagen adjuntada.
+            Este incidente no tiene una imagen adjunta.
           </p>
         )}
       </div>
