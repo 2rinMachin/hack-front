@@ -13,7 +13,7 @@ const HomePage = () => {
             Reporta Incidentes en la <span className="text-primary">UTEC</span>
           </h1>
 
-          <p className="text-neutral-300 text-lg max-w-xl leading-relaxed mx-auto md:mx-0">
+          <p className="text-neutral-300 text-lg max-w-xl leading-relaxed mx-auto md:mx-0 text-justify">
             Este sistema permite a los estudiantes reportar situaciones de
             riesgo o incidentes dentro del campus. Nuestro equipo de atención
             responderá con rapidez para brindar soporte.
