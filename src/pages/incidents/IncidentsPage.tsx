@@ -25,6 +25,19 @@ import {
 
 ChartJS.register(ArcElement, CategoryScale, Tooltip, Legend);
 
+const labels = {
+  aggression: "Agresión",
+  behavior: "Comportamiento",
+
+  high: "Alta",
+  mid: "Media",
+  low: "Baja",
+
+  pending: "Pendiente",
+  attending: "En Proceso",
+  done: "Resuelto",
+} as const;
+
 const options = {
   plugins: {
     legend: {
@@ -84,7 +97,7 @@ const IncidentsPage = () => {
   const havePermissions = !!(user && user.role !== "student");
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    havePermissions ? env.VITE_WEBSOCKET_URL : null
+    havePermissions ? env.VITE_WEBSOCKET_URL : null,
   );
 
   useEffect(() => {
@@ -119,12 +132,12 @@ const IncidentsPage = () => {
           incidents = [msg.data, ...incidents];
         } else if (msg.kind === "incident_status_update") {
           incidents = incidents.map((i) =>
-            i.id === msg.data.id ? { ...i, ...msg.data } : i
+            i.id === msg.data.id ? { ...i, ...msg.data } : i,
           );
         }
 
         return { ...oldData, body: incidents };
-      }
+      },
     );
   }, [queryClient, lastMessage]);
 
@@ -155,7 +168,7 @@ const IncidentsPage = () => {
   const summary = summaryData?.body;
 
   const generateChartData = (data: Record<string, number>) => ({
-    labels: Object.keys(data),
+    labels: Object.keys(data).map((key) => labels[key as keyof typeof labels]),
     datasets: [
       {
         data: Object.values(data),
@@ -237,7 +250,7 @@ const IncidentsPage = () => {
                 Estado
               </option>
               <option value="pending">Pendiente</option>
-              <option value="attending">En procceso</option>
+              <option value="attending">En Procceso</option>
               <option value="done">Resuelto</option>
             </select>
           </div>
