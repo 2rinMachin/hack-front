@@ -20,7 +20,7 @@ const urgencyColor = {
 
 const statusLabel = {
   pending: "Pendiente",
-  attending: "En atención",
+  attending: "Atendiendo",
   done: "Resuelto",
 } as const;
 

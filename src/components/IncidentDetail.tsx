@@ -30,7 +30,7 @@ const statusBgColor = {
 
 const statusLabel = {
   pending: "pendiente",
-  attending: "en atención",
+  attending: "atendiendo",
   done: "resuelto",
 } as const;
 
