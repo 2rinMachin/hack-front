@@ -1,6 +1,7 @@
 import { useRef, type ReactNode } from "react";
 import { createUsersClient } from "../api/users";
 import { ClientsContext, type ClientsContextValue } from "./ClientsContext";
+import { createIncidentsClient } from "../api/incidents";
 
 export interface Props {
   children: ReactNode | null;
@@ -14,6 +15,7 @@ export const ClientsProvider = ({ children }: Props) => {
   ) => {
     return {
       usersClient: createUsersClient(token),
+      incidentsClient: createIncidentsClient(token),
     };
   };
 

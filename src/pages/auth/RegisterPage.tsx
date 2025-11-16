@@ -37,26 +37,25 @@ const RegisterPage = () => {
 
     localStorage.setItem("token", loginRes.body.token);
     refreshClients(loginRes.body.token);
-
     window.location.href = "/";
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-[80vh] px-6">
       <div className="w-full max-w-md">
-        <h1 className="text-3xl font-semibold text-center mb-8">
+        <h1 className="text-3xl font-semibold text-center mb-8 text-neutral-100">
           Crear cuenta
         </h1>
 
         <form
-          className="bg-white border border-neutral-200 rounded-2xl shadow-sm px-6 py-8 space-y-5"
+          className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-sm px-6 py-8 space-y-5"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div>
             <input
               type="text"
               placeholder="Nombre de usuario"
-              className="border border-neutral-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:border-neutral-800 transition"
+              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
               {...form.register("username")}
             />
           </div>
@@ -65,7 +64,7 @@ const RegisterPage = () => {
             <input
               type="email"
               placeholder="Correo"
-              className="border border-neutral-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:border-neutral-800 transition"
+              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
               {...form.register("email")}
             />
           </div>
@@ -74,42 +73,48 @@ const RegisterPage = () => {
             <input
               type="password"
               placeholder="Contraseña"
-              className="border border-neutral-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:border-neutral-800 transition"
+              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-white"
               {...form.register("password")}
             />
           </div>
 
           <div>
             <select
-              className="border border-neutral-300 rounded-lg px-3 py-2 w-full bg-white focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:border-neutral-800 transition"
+              className="bg-neutral-900 border border-[var(--color-border)] rounded-lg px-3 py-2 w-full text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               {...form.register("role")}
             >
-              <option value="student">Estudiante</option>
-              <option value="staff">Personal</option>
-              <option value="authority">Autoridad</option>
+              <option className="text-black" value="student">
+                Estudiante
+              </option>
+              <option className="text-black" value="staff">
+                Personal
+              </option>
+              <option className="text-black" value="authority">
+                Autoridad
+              </option>
             </select>
           </div>
 
           {error && (
-            <p className="text-red-600 text-sm text-center font-medium">
+            <p className="text-red-500 text-sm text-center font-medium">
               {error}
             </p>
           )}
 
           <button
             type="submit"
-            className="w-full bg-neutral-900 text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-neutral-800 transition"
+            className="w-full bg-[var(--color-primary)] text-white rounded-lg py-2.5 font-medium flex items-center justify-center gap-2 hover:bg-sky-600 transition"
           >
             <LuUserPlus className="size-4" />
             Registrarse
           </button>
         </form>
 
-        <p className="text-sm text-neutral-600 text-center mt-6">
+        <p className="text-sm text-neutral-400 text-center mt-6">
           ¿Ya tienes cuenta?{" "}
           <NavLink
             to="/login"
-            className="text-neutral-900 font-medium hover:underline"
+            className="text-[var(--color-primary)] font-medium hover:underline"
           >
             Inicia sesión
           </NavLink>

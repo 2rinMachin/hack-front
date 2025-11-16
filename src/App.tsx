@@ -22,7 +22,7 @@ const App = () => (
       <ClientsProvider>
         <AuthProvider>
           <Header />
-          <div className="px-8 bg-slate-50 ">
+          <div className="px-8 bg-[var(--color-bg)]">
             <Routes>
               <Route index Component={HomePage} />
               <Route path="*" Component={NotFoundPage} />

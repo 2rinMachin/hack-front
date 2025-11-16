@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-bg: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-border: #2d2d2d;
+  --color-text: #e5e5e5;
+  --color-primary: #0ea5e9;
+}
 
+body {
+  @apply bg-[var(--color-bg)] text-[var(--color-text)];
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  @apply bg-neutral-50;
 }
