@@ -10,6 +10,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import IncidentsPage from "./pages/incidents/IncidentsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import { UserPage } from "./pages/UserPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="*" Component={NotFoundPage} />
               <Route path="login" Component={LoginPage} />
               <Route path="register" Component={RegisterPage} />
+              <Route path="users/:id" Component={UserPage} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="incidents" Component={IncidentsPage} />
