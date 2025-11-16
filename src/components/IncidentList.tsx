@@ -1,5 +1,6 @@
 import type { Incident } from "../schemas/incident";
 import dayjs from "../util/dayjs";
+import { useNavigate } from "react-router-dom";
 
 interface IncidentListProps {
   incidents: Incident[];
@@ -18,6 +19,12 @@ const statusColor = {
 };
 
 const IncidentList = ({ incidents }: IncidentListProps) => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (id: string) => {
+    navigate(`/incidents/${id}`);
+  };
+
   return (
     <div className="overflow-x-auto w-full">
       <div className="rounded-2xl border border-border bg-surface shadow-md overflow-hidden">
@@ -36,7 +43,8 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
             {incidents.map((incident) => (
               <tr
                 key={incident.id}
-                className="border-t border-neutral-700 hover:bg-neutral-800/40 transition cursor-pointer"
+                onClick={() => handleRowClick(incident.id)}
+                className="border-t border-neutral-700 hover:bg-neutral-800/50 hover:cursor-pointer transition-all"
               >
                 <td className="py-3 px-6 capitalize">{incident.kind}</td>
                 <td className="py-3 px-6">{incident.description}</td>

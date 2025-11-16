@@ -13,7 +13,7 @@ const IncidentsPage = () => {
   const { incidentsClient } = useClients();
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    env.VITE_WEBSOCKET_URL,
+    env.VITE_WEBSOCKET_URL
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const IncidentsPage = () => {
         incidents = [msg.data, ...incidents];
       } else if (msg.kind === "incident_status_update") {
         incidents = incidents.map((i) =>
-          i.id === msg.data.id ? { ...i, ...msg.data } : i,
+          i.id === msg.data.id ? { ...i, ...msg.data } : i
         );
       }
 
