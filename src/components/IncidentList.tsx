@@ -1,4 +1,5 @@
 import type { Incident } from "../schemas/incident";
+import dayjs from "../util/dayjs";
 
 interface IncidentListProps {
   incidents: Incident[];
@@ -28,6 +29,7 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
               <th className="py-3 px-6 text-left font-medium">Ubicación</th>
               <th className="py-3 px-6 text-left font-medium">Urgencia</th>
               <th className="py-3 px-6 text-left font-medium">Estado</th>
+              <th className="py-3 px-6 text-left font-medium">Fecha</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +58,9 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
                   >
                     {incident.status}
                   </span>
+                </td>
+                <td className="py-3 px-6">
+                  {dayjs(incident.created_at).locale("es").fromNow()}
                 </td>
               </tr>
             ))}
