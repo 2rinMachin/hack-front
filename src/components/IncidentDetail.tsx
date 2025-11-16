@@ -2,6 +2,7 @@ import type { Incident } from "../schemas/incident";
 import { useAuth } from "../hooks/use-auth";
 import { useClients } from "../hooks/use-clients";
 import dayjs from "../util/dayjs";
+import { twJoin } from "tailwind-merge";
 
 const urgencyColor = {
   low: "text-green-400",
@@ -68,7 +69,9 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
 
         <p>
           <span className="font-semibold text-neutral-400">Urgencia:</span>{" "}
-          <span className={`font-semibold ${urgencyColor[incident.urgency]}`}>
+          <span
+            className={twJoin("font-semibold", urgencyColor[incident.urgency])}
+          >
             {urgencyLabel[incident.urgency]}
           </span>
         </p>
@@ -86,7 +89,9 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
               <option value="done">done</option>
             </select>
           ) : (
-            <span className={`font-semibold ${statusColor[incident.status]}`}>
+            <span
+              className={twJoin("font-semibold", statusColor[incident.status])}
+            >
               {incident.status}
             </span>
           )}
