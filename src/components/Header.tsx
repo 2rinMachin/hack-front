@@ -11,6 +11,12 @@ const links = [
     authenticated: true,
     authorized_roles: ["staff", "authority"],
   },
+  {
+    label: "Guía",
+    to: "/guide",
+    authenticated: false,
+    authorized_roles: ["student", "staff", "authority"],
+  },
 ];
 
 const Header = () => {
