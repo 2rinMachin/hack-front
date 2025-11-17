@@ -4,6 +4,17 @@ import { useClients } from "../hooks/use-clients";
 import dayjs from "../util/dayjs";
 import { twJoin } from "tailwind-merge";
 
+const kindLabels = {
+  aggression: "Agresión",
+  behavior: "Comportamiento",
+  plagiarism: "Plagio",
+  discrimination: "Discriminación",
+  robbery: "Robo",
+  lost_item: "Objeto perdido",
+  technical: "Fallo técnico",
+  other: "Otro",
+} as const;
+
 const urgencyColor = {
   low: "text-green-400",
   mid: "text-yellow-400",
@@ -54,7 +65,7 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
 
         <p>
           <span className="font-semibold text-neutral-400">Tipo:</span>{" "}
-          <span className="capitalize">{incident.kind}</span>
+          <span>{kindLabels[incident.kind]}</span>
         </p>
 
         <p>
@@ -98,7 +109,7 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
                       "px-3 py-1 rounded-lg border text-sm transition-colors flex items-center gap-1",
                       selected
                         ? "bg-neutral-700 text-neutral-200 border-neutral-500 opacity-70"
-                        : "border-neutral-600 text-neutral-300 hover:bg-neutral-700/40 hover:border-neutral-500"
+                        : "border-neutral-600 text-neutral-300 hover:bg-neutral-700/40 hover:border-neutral-500",
                     )}
                   >
                     {statusLabel[status]}
@@ -151,7 +162,7 @@ const IncidentDetail = ({ incident, refetch }: Props) => {
                 className={twJoin(
                   "flex justify-between items-center p-3 rounded-lg border text-sm",
                   statusBgColor[h.status],
-                  statusColor[h.status]
+                  statusColor[h.status],
                 )}
               >
                 <span>

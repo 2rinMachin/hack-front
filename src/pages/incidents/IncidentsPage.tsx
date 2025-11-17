@@ -31,6 +31,9 @@ const labels = {
   plagiarism: "Plagio",
   discrimination: "Discriminación",
   robbery: "Robo",
+  lost_item: "Objeto perdido",
+  technical: "Fallo técnico",
+  other: "Otro",
 
   high: "Alta",
   mid: "Media",
@@ -127,9 +130,7 @@ const IncidentsPage = () => {
     const data = JSON.parse(lastMessage.data);
     if (!data.kind) return;
 
-    console.log("data:", data);
     const msg = WebSocketMessage.parse(data);
-    console.log("msg:", msg);
 
     if (msg.kind === "subscription_success") {
       setReady(true);
