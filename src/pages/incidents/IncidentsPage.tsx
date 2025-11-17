@@ -103,7 +103,7 @@ const IncidentsPage = () => {
   const havePermissions = !!(user && user.role !== "student");
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    env.VITE_WEBSOCKET_URL,
+    env.VITE_WEBSOCKET_URL
   );
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const IncidentsPage = () => {
       urgency: filters.urgency,
       location: filters.location,
     }),
-    [filters.kind, filters.status, filters.urgency, filters.location],
+    [filters.kind, filters.status, filters.urgency, filters.location]
   );
 
   useEffect(() => {
@@ -148,12 +148,12 @@ const IncidentsPage = () => {
           incidents = [msg.data, ...incidents];
         } else if (msg.kind === "incident_status_update") {
           incidents = incidents.map((i) =>
-            i.id === msg.data.id ? { ...i, ...msg.data } : i,
+            i.id === msg.data.id ? { ...i, ...msg.data } : i
           );
         }
 
         return { ...oldData, body: incidents };
-      },
+      }
     );
   }, [queryClient, lastMessage]);
 
@@ -187,6 +187,9 @@ const IncidentsPage = () => {
           "#05DF72",
           "#4BC0C0",
           "#A020F0",
+          "#3B82F6",
+          "#FF7F50",
+          "#FF33AA",
         ],
       },
     ],
