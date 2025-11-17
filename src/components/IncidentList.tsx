@@ -12,6 +12,9 @@ const kindLabel = {
   plagiarism: "Plagio",
   discrimination: "Discriminación",
   robbery: "Robo",
+  lost_item: "Objeto perdido",
+  technical: "Fallo técnico",
+  other: "Otro",
 } as const;
 
 const urgencyLabel = {

@@ -6,6 +6,9 @@ export const INCIDENT_KINDS = [
   "plagiarism",
   "discrimination",
   "robbery",
+  "lost_item",
+  "technical",
+  "other",
 ] as const;
 export const IncidentKind = z.literal(INCIDENT_KINDS);
 export type IncidentKind = z.infer<typeof IncidentKind>;

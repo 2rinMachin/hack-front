@@ -3,7 +3,7 @@ import { useClients } from "../../hooks/use-clients";
 import IncidentList from "../../components/IncidentList";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { env } from "../../env";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Incident } from "../../schemas/incident";
 import { WebSocketMessage } from "../../schemas/websocket-message";
 import { LuCircle } from "react-icons/lu";
@@ -111,13 +111,25 @@ const IncidentsPage = () => {
 
   const [ready, setReady] = useState(false);
 
+  const filterParams = useMemo(
+    () => ({
+      kind: filters.kind,
+      status: filters.status,
+      urgency: filters.urgency,
+      location: filters.location,
+    }),
+    [filters.kind, filters.status, filters.urgency, filters.location],
+  );
+
   useEffect(() => {
     if (!lastMessage) return;
 
     const data = JSON.parse(lastMessage.data);
     if (!data.kind) return;
 
+    console.log("data:", data);
     const msg = WebSocketMessage.parse(data);
+    console.log("msg:", msg);
 
     if (msg.kind === "subscription_success") {
       setReady(true);
@@ -127,7 +139,7 @@ const IncidentsPage = () => {
     if (msg.kind === "subscription_failed") return;
 
     queryClient.setQueryData<IncidentsListData>(
-      ["incidents-list"],
+      ["incidents-list", filterParams],
       (oldData) => {
         let incidents: Incident[] = oldData?.body ?? [];
 
@@ -143,13 +155,6 @@ const IncidentsPage = () => {
       },
     );
   }, [queryClient, lastMessage]);
-
-  const filterParams = {
-    kind: filters.kind,
-    status: filters.status,
-    urgency: filters.urgency,
-    location: filters.location,
-  };
 
   const {
     data: summaryData,
