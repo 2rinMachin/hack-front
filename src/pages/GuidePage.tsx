@@ -17,19 +17,14 @@ const adminFeatures = [
   {
     title: "Actualizaciones en tiempo real",
     image: "src/assets/panel_incidentes.png",
-    description: "Panel con lista de incidentes en tiempo real.",
+    description:
+      "Panel con lista de incidentes, gráficos y filtros en tiempo real.",
   },
   {
     title: "Gestión del incidentes",
     image: "src/assets/detalle_incidente.png",
     description:
       "Actualizar estado, revisar historial y ver cambios en tiempo real.",
-  },
-  {
-    title: "Estadísticas y filtros",
-    image: "src/assets/estadisticas.png",
-    description:
-      "Gráficos y filtros avanzados para analizar patrones y ubicaciones.",
   },
   {
     title: "Notificaciones",
@@ -86,7 +81,7 @@ const GuidePage = () => {
             funcionalidades:
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mt-10 text-neutral-300">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 text-neutral-300">
             {adminFeatures.map((f, idx) => (
               <div
                 key={idx}
