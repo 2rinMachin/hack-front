@@ -271,7 +271,7 @@ const IncidentsPage = () => {
                 Estado
               </option>
               <option value="pending">Pendiente</option>
-              <option value="attending">En Procceso</option>
+              <option value="attending">En Proceso</option>
               <option value="done">Resuelto</option>
             </select>
           </div>
