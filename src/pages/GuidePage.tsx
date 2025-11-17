@@ -27,12 +27,6 @@ const adminFeatures = [
       "Actualizar estado, revisar historial y ver cambios en tiempo real.",
   },
   {
-    title: "Estadísticas y filtros",
-    image: "assets/estadisticas.png",
-    description:
-      "Gráficos y filtros avanzados para analizar patrones y ubicaciones.",
-  },
-  {
     title: "Notificaciones",
     image: "assets/notificaciones.png",
     description:
