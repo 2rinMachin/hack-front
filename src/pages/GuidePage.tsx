@@ -16,14 +16,9 @@ const studentSteps = [
 const adminFeatures = [
   {
     title: "Actualizaciones en tiempo real",
-<<<<<<< HEAD
     image: "src/assets/panel_incidentes.png",
     description:
       "Panel con lista de incidentes, gráficos y filtros en tiempo real.",
-=======
-    image: "assets/panel_incidentes.png",
-    description: "Panel con lista de incidentes en tiempo real.",
->>>>>>> 27ed10a7ac447101b5b68534f82a64a0e0da9745
   },
   {
     title: "Gestión del incidentes",
@@ -32,15 +27,6 @@ const adminFeatures = [
       "Actualizar estado, revisar historial y ver cambios en tiempo real.",
   },
   {
-<<<<<<< HEAD
-=======
-    title: "Estadísticas y filtros",
-    image: "assets/estadisticas.png",
-    description:
-      "Gráficos y filtros avanzados para analizar patrones y ubicaciones.",
-  },
-  {
->>>>>>> 27ed10a7ac447101b5b68534f82a64a0e0da9745
     title: "Notificaciones",
     image: "assets/notificaciones.png",
     description:
