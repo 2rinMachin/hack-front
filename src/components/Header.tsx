@@ -12,7 +12,7 @@ const links = [
     authorized_roles: ["staff", "authority"],
   },
   {
-    label: "Guía",
+    label: "Guía de uso",
     to: "/guide",
     authenticated: false,
     authorized_roles: ["student", "staff", "authority"],
@@ -55,7 +55,7 @@ const Header = () => {
                 .filter(
                   (l) =>
                     !l.authenticated ||
-                    (user && l.authorized_roles.includes(user.role))
+                    (user && l.authorized_roles.includes(user.role)),
                 )
                 .map((link) => (
                   <NavLink
@@ -64,7 +64,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       twJoin(
                         "relative text-neutral-300 hover:text-primary transition-colors after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary hover:after:w-full after:transition-all",
-                        isActive && "text-primary font-medium after:w-full"
+                        isActive && "text-primary font-medium after:w-full",
                       )
                     }
                   >
