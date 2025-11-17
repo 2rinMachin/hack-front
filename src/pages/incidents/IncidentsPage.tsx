@@ -100,7 +100,7 @@ const IncidentsPage = () => {
   const havePermissions = !!(user && user.role !== "student");
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    havePermissions ? env.VITE_WEBSOCKET_URL : null,
+    havePermissions ? env.VITE_WEBSOCKET_URL : null
   );
 
   useEffect(() => {
@@ -135,12 +135,12 @@ const IncidentsPage = () => {
           incidents = [msg.data, ...incidents];
         } else if (msg.kind === "incident_status_update") {
           incidents = incidents.map((i) =>
-            i.id === msg.data.id ? { ...i, ...msg.data } : i,
+            i.id === msg.data.id ? { ...i, ...msg.data } : i
           );
         }
 
         return { ...oldData, body: incidents };
-      },
+      }
     );
   }, [queryClient, lastMessage]);
 
@@ -175,7 +175,7 @@ const IncidentsPage = () => {
     datasets: [
       {
         data: Object.values(data),
-        backgroundColor: ["#FF4144", "#05DF72", "#FFC534", "#4BC0C0"],
+        backgroundColor: ["#FF4144", "#FFC534", "#05DF72", "#4BC0C0"],
       },
     ],
   });
