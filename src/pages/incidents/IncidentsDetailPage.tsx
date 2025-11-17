@@ -1,12 +1,52 @@
 import { useParams } from "react-router-dom";
 import { useClients } from "../../hooks/use-clients";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Incident } from "../../schemas/incident";
 import IncidentDetail from "../../components/IncidentDetail";
+import { env } from "../../env";
+import useWebSocket, { ReadyState } from "react-use-websocket";
+import { useEffect } from "react";
+import { WebSocketMessage } from "../../schemas/websocket-message";
 
 const IncidentsDetailPage = () => {
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const { incidentsClient } = useClients();
+
+  const { sendMessage, lastMessage, readyState } = useWebSocket(
+    env.VITE_WEBSOCKET_URL,
+  );
+
+  useEffect(() => {
+    if (readyState !== ReadyState.OPEN) return;
+
+    sendMessage(JSON.stringify({ action: "subscribe" }));
+  }, [sendMessage, readyState]);
+
+  useEffect(() => {
+    if (!lastMessage) return;
+
+    const data = JSON.parse(lastMessage.data);
+    if (!data.kind) return;
+
+    const msg = WebSocketMessage.parse(data);
+
+    if (msg.kind === "subscription_success") return;
+    if (msg.kind === "subscription_failed") return;
+
+    if (msg.kind !== "incident_status_update" || msg.data.id !== id) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    queryClient.setQueryData(["incident", id], (oldData: any) => {
+      let incident: Incident | null = oldData?.body ?? null;
+
+      if (incident && incident.id === msg.data.id) {
+        incident = { ...incident, ...msg.data };
+      }
+
+      return { ...oldData, body: incident };
+    });
+  }, [queryClient, lastMessage, id]);
 
   const { data, isFetching, isError, refetch } = useQuery({
     queryKey: ["incident", id],
