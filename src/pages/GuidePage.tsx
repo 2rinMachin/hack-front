@@ -89,7 +89,7 @@ const GuidePage = () => {
               >
                 <img
                   src={f.image}
-                  className="w-full h-40 object-cover rounded-lg border border-neutral-700"
+                  className="w-full h-50 object-cover rounded-lg border border-neutral-700"
                   alt={f.title}
                 />
                 <h3 className="text-lg font-semibold text-neutral-100">
