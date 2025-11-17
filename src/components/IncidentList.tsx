@@ -6,6 +6,14 @@ interface IncidentListProps {
   incidents: Incident[];
 }
 
+const kindLabel = {
+  aggression: "Agresión",
+  behavior: "Comportamiento",
+  plagiarism: "Plagio",
+  discrimination: "Discriminación",
+  robbery: "Robo",
+} as const;
+
 const urgencyLabel = {
   low: "Baja",
   mid: "Media",
@@ -58,7 +66,9 @@ const IncidentList = ({ incidents }: IncidentListProps) => {
                 onClick={() => handleRowClick(incident.id)}
                 className="border-t border-neutral-700 hover:bg-neutral-800/50 hover:cursor-pointer transition-all"
               >
-                <td className="py-3 px-6 capitalize">{incident.kind}</td>
+                <td className="py-3 px-6 capitalize">
+                  {kindLabel[incident.kind]}
+                </td>
                 <td className="py-3 px-6">{incident.description}</td>
                 <td className="py-3 px-6">{incident.location}</td>
                 <td className="py-3 px-6">

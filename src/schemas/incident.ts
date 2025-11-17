@@ -1,11 +1,15 @@
 import z from "zod";
 import { User } from "./user";
 import { IncidentHistoryEntry } from "./incident-history-entry";
-import { IncidentStatus, IncidentUrgency } from "./incident-enums";
+import {
+  IncidentKind,
+  IncidentStatus,
+  IncidentUrgency,
+} from "./incident-enums";
 
 export const Incident = z.object({
   id: z.string(),
-  kind: z.string(),
+  kind: IncidentKind,
   description: z.string(),
   location: z.string(),
   urgency: IncidentUrgency,
