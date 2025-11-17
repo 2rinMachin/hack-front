@@ -36,7 +36,7 @@ const adminFeatures = [
     title: "Notificaciones",
     image: "assets/notificaciones.png",
     description:
-      "Suscríbete a alertas por SMS o correo para recibir reportes instantáneamente.",
+      "Suscríbete a alertas por SMS o correo para recibir reportes instantáneamente. ¡Los SMS solo se envían para incidentes de urgencia alta!",
   },
 ];
 
