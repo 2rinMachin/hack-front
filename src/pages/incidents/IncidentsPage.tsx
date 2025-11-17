@@ -31,6 +31,9 @@ const labels = {
   plagiarism: "Plagio",
   discrimination: "Discriminación",
   robbery: "Robo",
+  lost_item: "Objeto perdido",
+  technical: "Fallo técnico",
+  other: "Otro",
 
   high: "Alta",
   mid: "Media",
