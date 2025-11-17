@@ -100,7 +100,7 @@ const IncidentsPage = () => {
   const havePermissions = !!(user && user.role !== "student");
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    havePermissions ? env.VITE_WEBSOCKET_URL : null,
+    env.VITE_WEBSOCKET_URL,
   );
 
   useEffect(() => {
