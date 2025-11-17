@@ -1,13 +1,13 @@
 const studentSteps = [
   {
     title: "Paso 1: Inicia sesión o crea tu cuenta",
-    image: "src/assets/paso_1.png",
+    image: "assets/paso_1.png",
     description:
       "Accede a la aplicación con tu cuenta UTEC o crea una nueva. Tus reportes quedarán vinculados a tu perfil.",
   },
   {
     title: "Paso 2: Completa y envía tu reporte",
-    image: "src/assets/paso_2.png",
+    image: "assets/paso_2.png",
     description:
       "Selecciona el tipo de incidente, agrega descripción, ubicación, urgencia y opcionalmente una imagen. Luego presiona Publicar para enviar el reporte.",
   },
@@ -16,24 +16,24 @@ const studentSteps = [
 const adminFeatures = [
   {
     title: "Actualizaciones en tiempo real",
-    image: "src/assets/panel_incidentes.png",
+    image: "assets/panel_incidentes.png",
     description: "Panel con lista de incidentes en tiempo real.",
   },
   {
     title: "Gestión del incidentes",
-    image: "src/assets/detalle_incidente.png",
+    image: "assets/detalle_incidente.png",
     description:
       "Actualizar estado, revisar historial y ver cambios en tiempo real.",
   },
   {
     title: "Estadísticas y filtros",
-    image: "src/assets/estadisticas.png",
+    image: "assets/estadisticas.png",
     description:
       "Gráficos y filtros avanzados para analizar patrones y ubicaciones.",
   },
   {
     title: "Notificaciones",
-    image: "src/assets/notificaciones.png",
+    image: "assets/notificaciones.png",
     description:
       "Suscríbete a alertas por SMS o correo para recibir reportes instantáneamente.",
   },
