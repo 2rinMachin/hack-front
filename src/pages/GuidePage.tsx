@@ -16,7 +16,7 @@ const studentSteps = [
 const adminFeatures = [
   {
     title: "Actualizaciones en tiempo real",
-    image: "src/assets/panel_incidentes.png",
+    image: "assets/panel_incidentes.png",
     description:
       "Panel con lista de incidentes, gráficos y filtros en tiempo real.",
   },
